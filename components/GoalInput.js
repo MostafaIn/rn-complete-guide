@@ -1,10 +1,15 @@
 import React,{ useState} from 'react'
-import { StyleSheet, TextInput, View, Button } from 'react-native'
+import { StyleSheet, TextInput, View, Button, Modal } from 'react-native'
 
-const GoalInput = ({onAddGoal}) => {
+const GoalInput = ({onAddGoal, visible, onCancel}) => {
     const [enteredGoal,setEnteredGoal] = useState('')
 
+    const addGoalhandler = () =>{
+      onAddGoal(enteredGoal);
+      setEnteredGoal('')
+    }
     return (
+      <Modal visible={visible} animationType="slide">
         <View style={styles.controller}>
         <TextInput 
           placeholder="Course Goal"
@@ -12,14 +17,21 @@ const GoalInput = ({onAddGoal}) => {
           value={enteredGoal}
           onChangeText={enteredGoal => setEnteredGoal(enteredGoal)}
         />
-        <Button 
-        title="ADD" 
-        style={styles.btn}
-        // onPress={() => onAddGoal(enteredGoal)}
-        onPress={onAddGoal.bind(this, enteredGoal)} // normal vanilla javascript syntax
-
-        />
-      </View>
+        <View style={styles.btns}>
+          <Button
+            title="CANCEL"
+            color="red"
+            onPress={onCancel}
+          />
+          <Button 
+            title="ADD" 
+            // onPress={() => onAddGoal(enteredGoal)}
+            onPress={addGoalhandler} // normal vanilla javascript syntax
+            disabled ={!enteredGoal}
+          />
+        </View>
+        </View>
+      </Modal>
     )
 }
 
@@ -27,8 +39,8 @@ export default GoalInput
 
 const styles = StyleSheet.create({
     controller:{
-        flexDirection:'row',
-        justifyContent:'space-between',
+        flex:1,
+        justifyContent:'center',
         alignItems:'center',
         paddingVertical:40
       },
@@ -40,12 +52,10 @@ const styles = StyleSheet.create({
         borderRadius:25, 
         padding:10
       },
-      btn:{
-        borderWidth:1,
-        borderColor:'#333',
-        borderStyle:'solid',
-        borderRadius:50,
+      btns:{
+        flexDirection:'row',
         padding: 5,
-        backgroundColor:'#333'
+        marginVertical:10,
+        // backgroundColor:'#333'
       }
 })
