@@ -8,6 +8,9 @@ const App = () =>{
   const [isAddModal, setIsAddModal] = useState(false)
 
   const handleAdd = (goalTitle) =>{
+    if(goalTitle.length === 0){
+      return alert('Enter some goal !')
+    }
     setCourseGoals( courseGoals => [...courseGoals,{id: Math.random().toString(), value:goalTitle}])
     setIsAddModal(false)  
   }

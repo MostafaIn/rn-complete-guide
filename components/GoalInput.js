@@ -27,7 +27,7 @@ const GoalInput = ({onAddGoal, visible, onCancel}) => {
             title="ADD" 
             // onPress={() => onAddGoal(enteredGoal)}
             onPress={addGoalhandler} // normal vanilla javascript syntax
-            disabled ={!enteredGoal}
+            // disabled ={!enteredGoal}
           />
         </View>
         </View>
